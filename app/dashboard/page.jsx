@@ -8,7 +8,7 @@ import { AuthContext } from '../components/context/AuthContext';
 import { JobContext } from '../components/context/JobContext';
 import styles from '../styles/dashboard.module.css';
 import { getFirestore, collection, doc, onSnapshot, query, where,updateDoc,deleteDoc } from 'firebase/firestore';
-import Button from '../components/common/Button';
+
 
 const Dashboard = () => {
   const { email, setHasSignedIn, setIsOrg: flag } = useContext(AuthContext);
@@ -40,15 +40,19 @@ const Dashboard = () => {
             flag(org);
 
             if (org) {
-              const jobsQuery = query(
-                collection(db, 'jobs'),
-                where('companyEmail', '==', eml)
-              );
 
-              const unsubscribeOrgJobs = onSnapshot(jobsQuery, (querySnapshot) => {
+            //   const orgJobsQuery = query(
+            //     collection(db, 'jobs'),
+            //     where()
+            //   );
+            const userDocRef = doc(db, 'users', eml);
+
+              const unsubscribeOrgJobs = onSnapshot(userDocRef, (querySnapshot) => {
                 const orgJobs = [];
-                querySnapshot.forEach((doc) => {
-                  orgJobs.push({ id: doc.id, ...doc.data() });
+                const jobs = userData.jobList;
+                console.log(jobs)
+                jobs.forEach((doc) => {
+                  orgJobs.push({ id: doc.id, ...doc });
                 });
                 setUserJobs(orgJobs);
                 setOrgMsg(orgJobs.length === 0 ? 'No jobs from your organization have been posted yet.' : '');
@@ -79,7 +83,6 @@ const Dashboard = () => {
               };
             }
           } else {
-            setUsrMsg("No data available")
             console.log('No such document!');
           }
         });
@@ -120,6 +123,7 @@ const Dashboard = () => {
     }
   };
   return (
+   
     <div className={styles.container}>
       <div className={styles.subcontainer_1}>
         <div className={styles.btn}>
@@ -149,7 +153,7 @@ const Dashboard = () => {
                         isPreview={false}
                       />
                       {applicants.length > 0 ? (
-                        <div className={styles.email_list}>
+                        <div>
                           <p className="text-green-700">Applications received from:</p>
                           <ul>
                             {applicants.map((applicant, index) => (
@@ -158,7 +162,7 @@ const Dashboard = () => {
                           </ul>
                         </div>
                       ) : (
-                        <p className="text-red-500">No applicants yet.</p>
+                        <p className="text-red-500"></p>
                       )}
                       <div
                         className={styles.image}
@@ -200,7 +204,6 @@ const Dashboard = () => {
             </div>
           )}
         </div>
-      <Button label="Find Jobs" onClick={()=>router.push('/')}></Button>
       </div>
     </div>
   );

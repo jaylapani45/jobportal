@@ -14,7 +14,6 @@ import HelperMsg from "../components/common/HelperMsg";
 import Button from "../components/common/Button";
 import styles from "../styles/auth.module.css";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense } from "react";
 
 const Login = () => {
   const { user, setUser } = useContext(AuthContext);
@@ -30,12 +29,10 @@ const Login = () => {
   const auth = getAuth(fire);
   const db = getFirestore(fire);
 
-  function params() {
-    const searchParams = useSearchParams();
-    const jobId = searchParams.get("jobId");
-    const fromApply = searchParams.get("fromApply");
-    return { jobId, fromApply };
-  }
+    
+   
+  
+  
 
   /**
    * reset values of inputs to empty string
@@ -50,6 +47,7 @@ const Login = () => {
     setPasswordErr("");
   };
 
+  
   const handleLogin = async () => {
     clearErrs();
     try {
@@ -57,27 +55,19 @@ const Login = () => {
       setHasSignedIn(true);
       localStorage.setItem("hasSignedIn", true);
       localStorage.setItem("email", email);
+
+    //   const searchParams = useSearchParams();
+    // const jobId = searchParams.get("jobId");
+    // const fromApply = searchParams.get("fromApply");
       
-      
-      const {jobId,fromApply} = params()
+      console.log(jobId,fromApply)
 
       if (fromApply && jobId) {
         // Apply for job if redirected from apply page
         // setLoading(true);
         console.log("hello");
         console.log(email);
-        try {
-          const jobDocRef = doc(db, "jobs", jobId);
-          console.log("Updating job document:", jobDocRef.id);
-          await updateDoc(jobDocRef, {
-            applicants: arrayUnion(email),
-          });
-          console.log("Successfully applied for job");
-        } catch (error) {
-          console.error("Error applying for job:", error);
-        } finally {
-          //   setLoading(false);
-        }
+        
       }
       router.push("/dashboard");
     } catch (err) {
@@ -105,10 +95,42 @@ const Login = () => {
     });
   };
 
+  const searchParams = useSearchParams()
+  const jobId = searchParams.get('jobId')
+  const fromApply = searchParams.get('fromApply')
+
+  const applyJob = async () =>{
+    console.log("try")
+    try {
+      const jobDocRef = doc(db, "jobs", jobId);
+      // const userDocRef = doc(db, "users", jobId.companyEmail);
+      console.log("Updating job document:", jobDocRef.id);
+      await updateDoc(jobDocRef, {
+        applicants: arrayUnion(email),
+      });
+
+      console.log("Updating user's job list and job's applicants");
+      // await updateDoc(userDocRef, {
+      //   [`jobList.${jobId}.applicants`]: arrayUnion(email),
+      // });
+      console.log("Successfully applied for job");
+    } catch (error) {
+      console.error("Error applying for job:", error);
+    } finally {
+      //   setLoading(false);
+    }
+    router.push('/dashboard')
+  }
+
   useEffect(() => {
     authListener();
+    
     if (hasSignedIn) {
+      if(jobId && fromApply){
+        applyJob()
+      }else{
       router.push("/dashboard");
+      }
     }
   }, [hasSignedIn, router]);
 

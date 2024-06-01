@@ -1,8 +1,7 @@
 import { useState, useContext } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import { getFirestore, doc, collection,addDoc,updateDoc,arrayUnion } from 'firebase/firestore';
-import  fire  from '../utils/firebase';
+import { getFirestore, doc, collection, addDoc, updateDoc, arrayUnion } from 'firebase/firestore';
+import fire from '../utils/firebase';
 import { AuthContext } from '../components/context/AuthContext';
 import { HireContext } from '../components/context/HireContext';
 import Button from './common/Button';
@@ -27,10 +26,11 @@ const Preview = ({ mainPreview = false, jobId }) => {
   const [loading, setLoading] = useState(false);
 
   const handlePostJob = async () => {
-	const date = new Date();
-	const month = date.getMonth();
-	const day = date.getDay();
-	const time = day+'/'+month
+    const date = new Date();
+    const month = date.getMonth() + 1; // getMonth() is zero-based
+    const day = date.getDate(); // getDate() is one-based
+    const time = day + '/' + month;
+
     if (
       jobTitle !== '' &&
       jobArea !== '' &&
@@ -64,7 +64,7 @@ const Preview = ({ mainPreview = false, jobId }) => {
         const newJobRef = await addDoc(jobsCollection, jobInfo);
 
         // Update user's jobList with the new job ID
-        const userDocRef = doc(db, 'users', email);
+        const userDocRef = doc(db, 'users', email); // Ensure this path is correct
         await updateDoc(userDocRef, {
           jobList: arrayUnion({
             ...jobInfo,
@@ -80,13 +80,12 @@ const Preview = ({ mainPreview = false, jobId }) => {
       }
     }
   };
-  const handleApplyClick = async () => {
-	console.log(jobId)
-      // User is not logged in, redirect to login page with state
-      router.push("/login/?fromApply=true&jobId="+`${jobId}`); // Pass state to indicate redirected from apply
-  };
 
-  
+  const handleApplyClick = async () => {
+    console.log(jobId);
+    // User is not logged in, redirect to login page with state
+    router.push("/login/?fromApply=true&jobId=" + `${jobId}`); // Pass state to indicate redirected from apply
+  };
 
   return (
     <div className={styles.preview_container}>
