@@ -1,7 +1,4 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyCRqmmlRsiWD6OupOm0lB3_6PFWpxd2H2A",
@@ -19,4 +16,4 @@ if (!getApps().length) {
 } else {
   fire = getApp();
 }
-export {fire};
+export default fire;

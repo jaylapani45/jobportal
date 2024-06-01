@@ -2,7 +2,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { fire } from '../utils/firebase';
+import  fire  from '../utils/firebase';
 import Job from '../components/common/Job';
 import { AuthContext } from '../components/context/AuthContext';
 import { JobContext } from '../components/context/JobContext';

@@ -7,7 +7,7 @@ import HelperMsg from '../components/common/HelperMsg';
 import Button from '../components/common/Button';
 import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
-import { fire } from '../utils/firebase';
+import  fire  from '../utils/firebase';
 import styles from '../styles/auth.module.css';
 
 const SignUp = () => {

@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { getFirestore, doc, collection,addDoc,updateDoc,arrayUnion } from 'firebase/firestore';
-import { fire } from '../utils/firebase';
+import  fire  from '../utils/firebase';
 import { AuthContext } from '../components/context/AuthContext';
 import { HireContext } from '../components/context/HireContext';
 import Button from './common/Button';

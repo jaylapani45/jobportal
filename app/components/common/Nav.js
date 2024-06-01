@@ -5,7 +5,7 @@ import { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { JobContext } from '../context/JobContext';
 import { getAuth, signOut } from 'firebase/auth'; // Import necessary Firebase auth functions
-import { fire } from '../../utils/firebase';
+import  fire  from '../../utils/firebase';
 import styles from '../../styles/nav.module.css';
 
 const Nav = () => {

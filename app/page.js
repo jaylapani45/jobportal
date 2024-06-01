@@ -4,7 +4,7 @@ import Load from './components/common/Load';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { JobContext } from './components/context/JobContext';
 import Jobs from './components/Jobs';
-import { fire } from './utils/firebase';
+import  fire  from './utils/firebase';
 
 export default function Home() {
 	const { jobs, setJobs } = useContext(JobContext);

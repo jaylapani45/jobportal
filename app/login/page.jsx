@@ -8,7 +8,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { getFirestore, doc, updateDoc, arrayUnion } from "firebase/firestore";
-import { fire } from "../utils/firebase";
+import  fire  from "../utils/firebase";
 import Input from "../components/common/Input";
 import HelperMsg from "../components/common/HelperMsg";
 import Button from "../components/common/Button";
