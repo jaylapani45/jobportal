@@ -1,0 +1,17 @@
+/* styles */
+
+.container {
+	display: flex;
+	justify-content: center;
+}
+
+.subcontainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 70px;
+	width: 400px;
+	height: 500px;
+	box-shadow: 0 0px 30px #e1edf8;
+}

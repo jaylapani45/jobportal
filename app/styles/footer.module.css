@@ -1,0 +1,12 @@
+/* styles */
+
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-top: solid 1px #e1edf8;
+	color: #5a5a5a;
+	font-family: 'Raleway', sans-serif;
+	height: 100px;
+	margin-top: 70px;
+}
