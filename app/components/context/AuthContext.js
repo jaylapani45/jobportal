@@ -1,5 +1,7 @@
 "use client"
-import { useState, createContext } from 'react';
+import { useState, createContext,useEffect } from 'react';
+import { getAuth,onAuthStateChanged } from 'firebase/auth';
+import fire from '@/app/utils/firebase';
 
 const AuthContext = createContext();
 
@@ -12,6 +14,7 @@ const AuthProvider = ({ children }) => {
 	const [isOrg, setIsOrg] = useState(true);
 	const [hasSignedIn, setHasSignedIn] = useState(false);
 
+	
 	return (
 		<AuthContext.Provider
 			value={{

@@ -7,6 +7,7 @@ import { JobContext } from '../context/JobContext';
 import { getAuth, signOut } from 'firebase/auth'; // Import necessary Firebase auth functions
 import  fire  from '../../utils/firebase';
 import styles from '../../styles/nav.module.css';
+import withAuth from '@/app/utils/withAuth';
 
 const Nav = () => {
   const { hasSignedIn: val, setHasSignedIn: setVal, isOrg } = useContext(
@@ -98,7 +99,7 @@ const Nav = () => {
 						) : (
 							<Link href="/login">
 								<p>
-									<button>Post a Job</button>
+									
 								</p>
 							</Link>
 						)}

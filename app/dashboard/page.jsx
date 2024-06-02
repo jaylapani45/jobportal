@@ -4,10 +4,11 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import  fire  from '../utils/firebase';
 import Job from '../components/common/Job';
-import { AuthContext } from '../components/context/AuthContext';
+import { AuthContext, AuthProvider } from '../components/context/AuthContext';
 import { JobContext } from '../components/context/JobContext';
 import styles from '../styles/dashboard.module.css';
 import { getFirestore, collection, doc, onSnapshot, query, where,updateDoc,deleteDoc } from 'firebase/firestore';
+import withAuth from '../utils/withAuth';
 
 
 const Dashboard = () => {
@@ -23,7 +24,8 @@ const Dashboard = () => {
       const hasSignedIn = localStorage.getItem('hasSignedIn');
 
       if (hasSignedIn === 'false') {
-        router.push('/');
+        // router.push('/');
+
       } else {
         const eml = localStorage.getItem('email');
         const db = getFirestore(fire);
@@ -123,7 +125,6 @@ const Dashboard = () => {
     }
   };
   return (
-   
     <div className={styles.container}>
       <div className={styles.subcontainer_1}>
         <div className={styles.btn}>
@@ -209,4 +210,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default withAuth(Dashboard);
